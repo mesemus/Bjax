@@ -93,7 +93,6 @@ define(['jquery'], function(jQuery) {
         self.loader.update(100, 500);
         var url = this.options.url_transformation ?
                         this.options.url_transformation(this.data['url']):this.data['url'];
-        console.log("ajax-loading url", url);
         jQuery.ajax({
             type: 'GET',
             url: url,
@@ -132,7 +131,21 @@ define(['jquery'], function(jQuery) {
 
     Bjax.prototype.render = function (content) {
         if(this.data['element'] !== 'html') {
-            content = $(content).find(this.data['element']).html();
+            var inner = this;
+            var doc = (new DOMParser()).parseFromString('<dummy/>', 'text/html');
+            var parsed_html = jQuery.parseHTML(jQuery.trim(content), doc, true);
+            var found_elems = [];
+            parsed_html.forEach(function(el) {
+                var found = $(el).find(inner.data['element']).addBack(inner.data['element']);
+                if (found.length>0) {
+                    found_elems.push(found);
+                }
+            });
+            if (found_elems.length) {
+                content = found_elems[0].html();
+            } else {
+                content = "Element with signature " + inner.data['element'] + " not found in data";
+            }
         }
         if(this.data['target'] !== 'html') {
             $(this.data['target']).html(content);
