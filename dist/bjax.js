@@ -91,10 +91,12 @@ define(['jquery'], function(jQuery) {
     Bjax.prototype.execute = function () {
         var self = this;
         self.loader.update(100, 500);
+        var url = this.options.url_transformation ?
+                        this.options.url_transformation(this.data['url']):this.data['url'];
+        console.log("ajax-loading url", url);
         jQuery.ajax({
             type: 'GET',
-            url: this.options.url_transformation ?
-                        this.options.url_transformation(this.data['url']):this.data['url'],
+            url: url,
             success: function(content) {
                 self.loader.update(100, 300, function() {
                     self.render(content);
