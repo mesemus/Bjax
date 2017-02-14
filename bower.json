@@ -34,7 +34,8 @@
     "dist/bjax.min.js"
   ],
   "dependencies": {
-    "jQuery": "*"
+    "jquery": "*",
+    "requirejs": "*"
     },
   "ignore": [
     "*.md",

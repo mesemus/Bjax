@@ -1,9 +1,4 @@
-(function(window) {
-    if (!('jQuery' in window)) {
-        console.error('Bjax\'s JavaScript requires jQuery.');
-        return;
-    }
-    var jQuery = window.jQuery;
+define(['jquery'], function(jQuery) {
 
     var isArray = function (element) {
         return Object.prototype.toString.call(element) === '[object Array]';
@@ -218,5 +213,5 @@
         path: window.location.href
     }, '');
 
-    window.Bjax = Bjax;
-})(window);
+    return Bjax;
+});
