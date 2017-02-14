@@ -51,6 +51,7 @@ gulp.task('watch', function() {
     gulp.watch('src/demo/*', ['demo']);
 });
 
+
 gulp.task('webserver', function() {
   gulp.src('')
     .pipe(webserver({
@@ -60,4 +61,4 @@ gulp.task('webserver', function() {
     }));
 });
 
-gulp.task('default', ['bower', 'js', 'sass', 'demo', 'webserver', 'watch']);
+gulp.task('default', ['bower', 'js', 'sass', 'demo'/*, 'webserver', 'watch'*/]);
