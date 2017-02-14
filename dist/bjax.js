@@ -44,6 +44,7 @@ define(['jquery'], function(jQuery) {
         'element': 'html',
         'target_attribute': 'data-target',
         'target': 'html',
+        'url_transformation': null
     };
 
     Bjax.prototype.loadElement = function (element) {
@@ -92,7 +93,8 @@ define(['jquery'], function(jQuery) {
         self.loader.update(100, 500);
         jQuery.ajax({
             type: 'GET',
-            url: this.data['url'],
+            url: this.options.url_transformation ?
+                        this.options.url_transformation(this.data['url']):this.data['url'],
             success: function(content) {
                 self.loader.update(100, 300, function() {
                     self.render(content);
