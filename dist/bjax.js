@@ -93,6 +93,7 @@ define(['jquery'], function(jQuery) {
         self.loader.update(100, 500);
         var url = this.options.url_transformation ?
                         this.options.url_transformation(this.data['url']):this.data['url'];
+        jQuery('body').addClass('waiting');
         jQuery.ajax({
             type: 'GET',
             url: url,
@@ -102,6 +103,9 @@ define(['jquery'], function(jQuery) {
                     self.updateUrl();
                     document.title = $(content).filter('title').text();
                 });
+            },
+            complete: function() {
+                jQuery('body').removeClass('waiting');
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 var errorText = 'Error occurred, retrying. Click anywhere to exit.';
