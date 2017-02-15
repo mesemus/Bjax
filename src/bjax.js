@@ -44,7 +44,8 @@ define(['jquery'], function(jQuery) {
         'element': 'html',
         'target_attribute': 'data-target',
         'target': 'html',
-        'url_transformation': null
+        'url_transformation': null,
+        'load_callback': null
     };
 
     Bjax.prototype.loadElement = function (element) {
@@ -102,6 +103,9 @@ define(['jquery'], function(jQuery) {
                     self.render(content);
                     self.updateUrl();
                     document.title = $(content).filter('title').text();
+                    if (self.options.load_callback) {
+                        self.options.load_callback(self, content);
+                    }
                 });
             },
             complete: function() {
